@@ -253,22 +253,25 @@
 
 <script>
   var CARDS = [
-    {num:'01', suit:'♠', title:'法文墨塗り', desc:'（　）を消して読みやすく(告示向け)', tag:'条文読解', href:'https://ho-ki-an.github.io/legal-text-blackout/'},
+    {num:'01', suit:'♠', title:'法文墨塗り', desc:'法文を少しだけ読みやすく(告示向け)', tag:'条文読解', href:'https://ho-ki-an.github.io/legal-text-blackout/'},
     {num:'02', suit:'♠', title:'法文滑滑', desc:'デジタル版「指の栞」', tag:'条文読解', href:'https://ho-ki-an.github.io/jyoubun_sulusulu/'},
     {num:'03', suit:'♣', title:'現調表メニュー', desc:'敷地調査、現調表作成の手伝い', tag:'調査', href:'https://ho-ki-an.github.io/building-regulation-search/'},
     {num:'04', suit:'♥', title:'地盤面maker', desc:'シンプルな地盤面算定ツール', tag:'集団規定', href:'https://ho-ki-an.github.io/jiban-maker/'},
     {num:'05', suit:'♥', title:'道路斜線検討ツール', desc:'視覚的に検討(高低差緩和対応)', tag:'集団規定', href:'https://ho-ki-an.github.io/road-setback/'},
     {num:'06', suit:'♦', title:'2直checker', desc:'階段1・2？緩和は？', tag:'単体規定', href:'https://ho-ki-an.github.io/2c-kaidan/'},
-    {num:'07', suit:'♦', title:'耐火種別＋防火区画＋防火設備', desc:'耐火・区画・開口部を一気に', tag:'単体規定', href:'https://ho-ki-an.github.io/b-kukaku/'},
+    {num:'07', suit:'♦', title:'防火区画＋面積＋防火設備', desc:'区画・開口部・遮煙を一気に', tag:'単体規定', href:'https://ho-ki-an.github.io/b-kukaku/'},
     {num:'08', suit:'♦', title:'延焼ライン', desc:'角度あり境界の検討、高さ緩和も', tag:'単体規定', href:'https://ho-ki-an.github.io/ensho_line/'},
     {num:'09', suit:'♠', title:'計画変更or軽微', desc:'判断の一助に', tag:'手続き', href:'https://ho-ki-an.github.io/kei-hen/'},
     {num:'10', suit:'♣', title:'区画避難', desc:'避難安全検証法の区画避難', tag:'高度な検討', href:'https://ho-ki-an.github.io/kukaku_hinan_b1/'},
-    {num:'11', suit:'♠', title:'省エネ判定の要・不要判定', desc:'判断の一助に', tag:'手続き', href:'https://ho-ki-an.github.io/shone_hantei/'},
+    {num:'11', suit:'♠', title:'省エネ判定の要不要判定', desc:'判断の一助に', tag:'手続き', href:'https://ho-ki-an.github.io/shone_hantei/'},
     {num:'12', suit:'♦', title:'歩行距離checker', desc:'避難通路の歩行距離を確認', tag:'単体規定', href:'https://ho-ki-an.github.io/hokou_kyori/'},
-    {num:'13', suit:'♠', title:'省エネ　軽微のルートA/B/C判定', desc:'判断の一助に', tag:'手続き', href:'https://ho-ki-an.github.io/shoene_route/'},
-    {num:'14', suit:'♠', title:'用途変更の申請　要・不要判定', desc:'判断の一助に', tag:'手続き', href:'https://ho-ki-an.github.io/youto_henkou/'},
-    {soon:true, title:'階避難', tag:'避難安全検証法'},
-    {soon:true, title:'採光補正係数算定', tag:'単体規定'}
+    {num:'13', suit:'♠', title:'省エネ　軽微のルート判定', desc:'判断の一助に', tag:'手続き', href:'https://ho-ki-an.github.io/shoene_route/'},
+    {num:'14', suit:'♠', title:'用途変更の申請要不要判定', desc:'判断の一助に', tag:'手続き', href:'https://ho-ki-an.github.io/youto_henkou/'},
+    {num:'15', suit:'♣', title:'階避難', desc:'避難安全検証法の階避難', tag:'高度な検討', href:'https://ho-ki-an.github.io/kai_hinan_b1/'},
+    {soon:true, title:'採光補正係数算定', tag:'単体規定'},
+    {soon:true, title:'単体規定ch', tag:'単体規定'},
+    {soon:true, title:'集団規定ch', tag:'集団規定'},
+    {soon:true, title:'関係規定ch', tag:'関係規定'}
   ];
 
   var SLOTS = [
