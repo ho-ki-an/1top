@@ -54,21 +54,8 @@
     margin-top: 16px;
   }
 
-  .redeal {
-    margin-top: 24px;
-    font-size: 14.4px;
-    color: #eae7dd;
-    background: transparent;
-    border: 1px solid #55524a;
-    border-radius: 20px;
-    padding: 7px 22px;
-    cursor: pointer;
-    letter-spacing: 0.05em;
-  }
-  .redeal:hover { border-color: var(--gold); color: var(--gold); }
-
   main {
-    max-width: 980px;
+    max-width: 1080px;
     margin: 0 auto;
     padding: 0 20px 60px;
   }
@@ -93,11 +80,37 @@
     margin-bottom: 26px;
   }
 
-  .fan {
-    position: relative;
-    height: 275px;
+  /* ---- 7並べ風テーブル ---- */
+  .table {
+    max-width: 960px;
     margin: 0 auto;
-    max-width: 640px;
+  }
+
+  .suit-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .suit-row:last-child { margin-bottom: 0; }
+
+  .row-cards {
+    display: flex;
+    justify-content: center;
+  }
+
+  .deal {
+    opacity: 0;
+    animation: dealIn 0.55s cubic-bezier(.2,.75,.25,1) forwards;
+    animation-delay: var(--delay);
+    margin-left: -26px;
+  }
+  .deal:first-child { margin-left: 0; }
+
+  @keyframes dealIn {
+    0%   { transform: translateY(-240px) rotate(-8deg) scale(0.7); opacity: 0; }
+    70%  { opacity: 1; }
+    100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
   }
 
   .card {
@@ -108,62 +121,54 @@
     text-decoration: none;
     display: block;
     position: relative;
-    padding: 10px 12px;
+    padding: 8px 10px;
     border: 1px solid #d8d4c4;
+    width: 128px;
+    height: 182px;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
   }
-
-  .fan-card {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 150px;
-    height: 215px;
-    transform-origin: bottom center;
-    opacity: 0;
-    animation: deal 0.65s cubic-bezier(.2,.75,.25,1) forwards;
-    animation-delay: var(--delay);
+  .card:hover {
+    transform: translateY(-14px);
+    box-shadow: 0 18px 28px rgba(0,0,0,0.55);
+    z-index: 50;
   }
-
-  @keyframes deal {
-    0%   { transform: translate(calc(-50% + 0px), -220px) rotate(0deg) scale(0.7); opacity: 0; }
-    70%  { opacity: 1; }
-    100% { transform: translate(calc(-50% + var(--x)), var(--y)) rotate(var(--rot)) scale(1); opacity: 1; }
-  }
+  .deal:hover { z-index: 50; position: relative; }
 
   .card .corner {
     font-family: "SFMono-Regular", Consolas, Menlo, monospace;
-    font-size: 14.4px;
+    font-size: 12.6px;
     line-height: 1.1;
     color: var(--ink);
   }
-  .corner .suit { display: block; font-size: 15.6px; margin-top: 1px; }
-  .corner.br { position: absolute; right: 10px; bottom: 8px; transform: rotate(180deg); }
+  .corner .suit { display: block; font-size: 13.8px; margin-top: 1px; }
+  .corner.br { position: absolute; right: 8px; bottom: 6px; transform: rotate(180deg); }
   .corner.red { color: #8a1f1f; }
 
   .card .title {
-    font-size: 15px;
+    font-size: 13.2px;
     font-weight: 500;
-    margin: 34px 4px 4px;
+    margin: 26px 2px 4px;
     text-align: center;
   }
 
   .card .desc {
-    font-size: 12.6px;
+    font-size: 11.4px;
     color: var(--ink-soft);
     text-align: center;
-    margin: 0 4px;
+    margin: 0 2px;
+    line-height: 1.45;
   }
 
   .card .tag {
     position: absolute;
-    left: 10px;
-    bottom: 8px;
-    font-size: 10.8px;
+    left: 8px;
+    bottom: 6px;
+    font-size: 10.2px;
     color: var(--ink-faint);
     letter-spacing: 0.03em;
   }
 
-  .fan-card.soon {
+  .card.soon {
     background: repeating-linear-gradient(135deg, #2b2b28 0 6px, #232320 6px 12px);
     border: 1px solid #3a3936;
     border-top: 3px solid #6b1f24;
@@ -174,9 +179,10 @@
     justify-content: center;
     text-align: center;
   }
-  .fan-card.soon .mark { font-size: 28px; color: var(--gold); opacity: 0.55; }
-  .fan-card.soon .soon-title { font-size: 13px; color: #eae7dd; margin-top: 10px; padding: 0 10px; }
-  .fan-card.soon .soon-tag { font-size: 10.5px; color: #b9b6ac; margin-top: 4px; }
+  .card.soon:hover { transform: translateY(-14px); }
+  .card.soon .mark { font-size: 24px; color: var(--gold); opacity: 0.55; }
+  .card.soon .soon-title { font-size: 12px; color: #eae7dd; margin-top: 8px; padding: 0 8px; }
+  .card.soon .soon-tag { font-size: 10.2px; color: #b9b6ac; margin-top: 4px; }
 
   .disclaimer {
     max-width: 480px;
@@ -209,17 +215,9 @@
     color: #8f8c82;
   }
 
-  @media (max-width: 640px) {
-    .fan { position: static; height: auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
-    .fan-card {
-      position: static; margin: 0; left: auto; top: auto;
-      animation: dropSimple 0.5s ease forwards;
-      animation-delay: var(--delay);
-    }
-    @keyframes dropSimple {
-      0%   { transform: translateY(-40px); opacity: 0; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
+  @media (max-width: 720px) {
+    .row-cards { flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .deal { margin-left: 0; }
   }
 </style>
 </head>
@@ -228,14 +226,13 @@
 <header>
   <h1>基準法のPre-Opinion</h1>
   <div class="by">by箒庵</div>
-  <button class="redeal" onclick="drow()">Change</button>
 </header>
 
 <main>
 
   <div class="felt-panel">
-    <div class="hand-label">Hand</div>
-    <div class="fan" id="fan"></div>
+    <div class="hand-label">Table</div>
+    <div class="table" id="table"></div>
   </div>
 
   <div class="disclaimer">
@@ -278,56 +275,82 @@
     {soon:true, title:'広告募集中', tag:'広告'}
   ];
 
-  var SLOTS = [
-    {x:-230, y:40, rot:-16, delay:0.05},
-    {x:-115, y:14, rot:-8,  delay:0.15},
-    {x:0,    y:0,  rot:0,   delay:0.25},
-    {x:115,  y:14, rot:8,   delay:0.35},
-    {x:230,  y:40, rot:16,  delay:0.45}
-  ];
+  /* 段ごとの配置（カード番号で指定） */
+  var ROWS_DEF = [
+    ['03', '01', '02'],                         /* 1段目：現調表・法文墨塗り・法文滑滑 */
+    ['04', '05'],                               /* 2段目：地盤面・道路斜線 */
+    ['07', '08', '06', '12', '15', '10'],       /* 3段目：耐火種別・延焼ライン・2直・歩行距離・階避難・区画避難 */
+    ['09', '11', '13', '14']                    /* 4段目：残り（手続き系） */
+  ];                                            /* 5段目：soonカード（リンクなし） */
 
-  function shuffle(arr) {
-    var a = arr.slice();
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-    }
-    return a;
-  }
-
-  function cardHTML(item, slot, z) {
-    var style = '--x:' + slot.x + 'px; --y:' + slot.y + 'px; --rot:' + slot.rot + 'deg; --delay:' + slot.delay + 's; z-index:' + z + ';';
+  function cardHTML(item, delay) {
+    var wrapStyle = '--delay:' + delay.toFixed(2) + 's;';
     if (item.soon) {
-      return '<div class="card fan-card soon" style="' + style + '">' +
+      return '<div class="deal" style="' + wrapStyle + '">' +
+        '<div class="card soon">' +
         '<span class="mark">?</span>' +
         '<div class="soon-title">' + item.title + '</div>' +
         '<div class="soon-tag">' + item.tag + '</div>' +
-        '</div>';
+        '</div></div>';
     }
     var isRed = (item.suit === '♥' || item.suit === '♦');
     var cornerClass = 'corner' + (isRed ? ' red' : '');
     var cornerBrClass = 'corner br' + (isRed ? ' red' : '');
-    return '<a class="card fan-card" style="' + style + '" href="' + item.href + '" target="_blank" rel="noopener">' +
+    return '<div class="deal" style="' + wrapStyle + '">' +
+      '<a class="card" href="' + item.href + '" target="_blank" rel="noopener">' +
       '<div class="' + cornerClass + '">' + item.num + '<span class="suit">' + item.suit + '</span></div>' +
       '<div class="title">' + item.title + '</div>' +
       '<div class="desc">' + item.desc + '</div>' +
       '<div class="' + cornerBrClass + '">' + item.num + '<span class="suit">' + item.suit + '</span></div>' +
       '<div class="tag">' + item.tag + '</div>' +
-      '</a>';
+      '</a></div>';
+  }
+
+  function findCard(num) {
+    for (var i = 0; i < CARDS.length; i++) {
+      if (CARDS[i].num === num) return CARDS[i];
+    }
+    return null;
   }
 
   function deal() {
-    var picked = shuffle(CARDS).slice(0, 5);
-    var fan = document.getElementById('fan');
-    var html = '';
-    for (var i = 0; i < picked.length; i++) {
-      html += cardHTML(picked[i], SLOTS[i], i + 1);
+    var rows = [];
+    for (var r = 0; r < ROWS_DEF.length; r++) {
+      var cards = [];
+      for (var c = 0; c < ROWS_DEF[r].length; c++) {
+        var card = findCard(ROWS_DEF[r][c]);
+        if (card) cards.push(card);
+      }
+      rows.push({ cards: cards });
     }
-    fan.innerHTML = html;
-  }
+    rows.push({ cards: CARDS.filter(function (c) { return c.soon; }) });
 
-  function drow() {
-    deal();
+    /* 配る順：各段に1枚ずつ順番に（ディーラーが配るイメージ） */
+    var delays = [];
+    var t = 0;
+    var maxLen = 0;
+    for (var r1 = 0; r1 < rows.length; r1++) {
+      delays.push([]);
+      if (rows[r1].cards.length > maxLen) maxLen = rows[r1].cards.length;
+    }
+    for (var col = 0; col < maxLen; col++) {
+      for (var r2 = 0; r2 < rows.length; r2++) {
+        if (col < rows[r2].cards.length) {
+          delays[r2][col] = 0.05 + t * 0.06;
+          t++;
+        }
+      }
+    }
+
+    var html = '';
+    for (var i = 0; i < rows.length; i++) {
+      html += '<div class="suit-row"><div class="row-cards">';
+      for (var j = 0; j < rows[i].cards.length; j++) {
+        html += cardHTML(rows[i].cards[j], delays[i][j]);
+      }
+      html += '</div></div>';
+    }
+    document.getElementById('table').innerHTML = html;
   }
 
   deal();
