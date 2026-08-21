@@ -287,13 +287,14 @@
   ];
 
   /* 段ごとの配置（カード番号で指定） */
+  /* 広告カード（soon）は各段の末尾に1枚ずつ、読み込みのたびにランダムで割り当てられます */
   var ROWS_DEF = [
     ['03', '02', '01'],                    /* 1段目：現調表メニュー・法文滑滑・法文墨塗り */
     ['17', '16', '18'],                    /* 2段目：集団規定ch・単体規定ch・関係規定ch */
     ['04', '05', '07', '08'],              /* 3段目：地盤面maker・道路斜線・耐火種別＋面積区画・延焼ライン */
     ['12', '06', '10', '15'],              /* 4段目：歩行距離checker・2直checker・区画避難・階避難 */
     ['09', '11', '13', '14']               /* 5段目：手続き系 */
-  ];                                       /* 6段目：soonカード（リンクなし） */
+  ];
 
   function cardHTML(item, delay) {
     var wrapStyle = '--delay:' + delay.toFixed(2) + 's;';
@@ -325,6 +326,16 @@
     return null;
   }
 
+  /* Fisher-Yates シャッフル（毎回の読み込みで並びが変わる） */
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
   function deal() {
     var rows = [];
     for (var r = 0; r < ROWS_DEF.length; r++) {
@@ -335,7 +346,12 @@
       }
       rows.push({ cards: cards });
     }
-    rows.push({ cards: CARDS.filter(function (c) { return c.soon; }) });
+
+    /* 広告カードをシャッフルして各段の末尾に1枚ずつ配る（枚数が段数を超えても順に回して漏らさない） */
+    var ads = shuffle(CARDS.filter(function (c) { return c.soon; }));
+    for (var a = 0; a < ads.length; a++) {
+      rows[a % rows.length].cards.push(ads[a]);
+    }
 
     /* 配る順：各段に1枚ずつ順番に（ディーラーが配るイメージ） */
     var delays = [];
